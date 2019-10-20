@@ -9,6 +9,8 @@
     <name>TODO-API</name>
     <packaging>pom</packaging>
     <modules>
+        <!-- Plumbing -->
+        <module>keycloak-create-realm</module>
         <!-- API -->
         <module>machi-todo-api</module>
     </modules>

@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.machi</groupId>
+  <artifactId>keycloak-create-realm</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>keycloak-create-realm</name>
+  <url>http://maven.apache.org</url>
+
+    <parent>
+        <artifactId>todo-api</artifactId>
+        <groupId>org.machi</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+
+  <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.quarkus.keycloak</groupId>
+      <artifactId>quarkus-keycloak-adapter</artifactId>
+      <version>1.0.0.Alpha1</version>
+    </dependency>
+     <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>4.1.2</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+        <plugins>
+            	
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-shade-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>shade</goal>
+            </goals>
+            <configuration>
+                <shadedArtifactAttached>true</shadedArtifactAttached>
+                <transformers>
+                    <transformer implementation=
+                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        <mainClass>org.machi.KeycloakCreateRealm</mainClass>
+                </transformer>
+            </transformers>
+
+    <filters>
+        <filter>
+            <artifact>*:*</artifact>
+            <excludes>
+                <exclude>META-INF/*.SF</exclude>
+                <exclude>META-INF/*.DSA</exclude>
+                <exclude>META-INF/*.RSA</exclude>
+            </excludes>
+        </filter>
+    </filters>
+    <!-- Additional configuration. -->
+</configuration>
+        </execution>
+    </executions>
+</plugin>
+        </plugins>
+    </build>
+</project>
