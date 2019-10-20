@@ -199,7 +199,7 @@ public class KeycloakCreateRealm {
                 .param("grant_type", "password")
                 .param("username", userName)
                 .param("password", userName)
-                .param("client_id", "quarkus-app")
+                .param("client_id", KEYCLOAK_CLIENT_ID)
                 .param("client_secret", "secret")
                 .when()
                 .post(KEYCLOAK_SERVER_URL + "/realms/" + KEYCLOAK_REALM + "/protocol/openid-connect/token")

@@ -1,4 +1,4 @@
-package org.machi.keycloak.org.machi;
+package org.machi.api;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;

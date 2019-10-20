@@ -1,4 +1,4 @@
-package org.machi.keycloak.org.machi;
+package org.machi.api;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
