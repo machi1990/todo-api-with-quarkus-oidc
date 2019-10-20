@@ -81,12 +81,20 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-oidc</artifactId>
     </dependency>
+
+    <!-- test -->
     <dependency>
       <groupId>io.quarkus.keycloak</groupId>
       <artifactId>quarkus-keycloak-adapter</artifactId>
       <version>1.0.0.Alpha1</version>
+      <scope>test</scope>
     </dependency>
-    <!-- test -->
+    <dependency>
+      <groupId>org.machi</groupId>
+      <artifactId>keycloak-create-realm</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>

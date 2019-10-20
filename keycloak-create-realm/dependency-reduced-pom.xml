@@ -20,7 +20,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>org.machi.KeycloakCreateRealm</mainClass>
+                  <mainClass>org.machi.keycloak.KeycloakCreateRealm</mainClass>
                 </transformer>
               </transformers>
             </configuration>

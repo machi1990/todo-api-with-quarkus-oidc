@@ -1,4 +1,4 @@
-package org.machi;
+package org.machi.keycloak;
 
 
 import java.io.IOException;
@@ -24,21 +24,20 @@ import org.keycloak.util.JsonSerialization;
 import io.restassured.RestAssured;
 
 public class KeycloakCreateRealm {
+    public static final String KEYCLOAK_SERVER_URL = System.getProperty("keycloak.url", "http://localhost:8180/auth");
+    public static final String KEYCLOAK_REALM = System.getProperty("keycloak.realm", "todo-api");
+    public static final String KEYCLOAK_CLIENT_ID = System.getProperty("keycloak.clientid", "machi-todo-api");
+
     public static void main(String[] args) throws IOException {
-        configureKeycloakRealm();
-    }
-
-    private static final String KEYCLOAK_SERVER_URL = System.getProperty("keycloak.url", "http://localhost:8180/auth");
-    private static final String KEYCLOAK_REALM = "todo-api";
-
-    public static void configureKeycloakRealm() throws IOException {
         RealmRepresentation realm = createRealm(KEYCLOAK_REALM);
 
-        realm.getClients().add(createClient("machi-todo-apip"));
-        realm.getUsers().add(createUser("alice", "user"));
+        realm.getClients().add(createClient(KEYCLOAK_CLIENT_ID));
+        realm.getUsers().add(createUser("machi", "user"));
         realm.getUsers().add(createUser("admin", "user", "admin"));
-        realm.getUsers().add(createUser("jdoe", "user", "confidential"));
+        configureKeycloakRealm(realm);
+    }
 
+    public static void configureKeycloakRealm(RealmRepresentation realm) throws IOException {
         RestAssured
                 .given()
                 .auth().oauth2(getAdminAccessToken())
@@ -57,7 +56,7 @@ public class KeycloakCreateRealm {
                 .delete(KEYCLOAK_SERVER_URL + "/admin/realms/" + KEYCLOAK_REALM).then().statusCode(204);
     }
 
-    private static String getAdminAccessToken() {
+    public static String getAdminAccessToken() {
         return RestAssured
                 .given()
                 .param("grant_type", "password")
@@ -69,7 +68,7 @@ public class KeycloakCreateRealm {
                 .as(AccessTokenResponse.class).getToken();
     }
 
-    private static RealmRepresentation createRealm(String name) {
+    public static RealmRepresentation createRealm(String name) {
         RealmRepresentation realm = new RealmRepresentation();
 
         realm.setRealm(name);
@@ -85,12 +84,11 @@ public class KeycloakCreateRealm {
 
         realm.getRoles().getRealm().add(new RoleRepresentation("user", null, false));
         realm.getRoles().getRealm().add(new RoleRepresentation("admin", null, false));
-        realm.getRoles().getRealm().add(new RoleRepresentation("confidential", null, false));
 
         return realm;
     }
 
-    private static ClientRepresentation createClient(String clientId) {
+    public static ClientRepresentation createClient(String clientId) {
         ClientRepresentation client = new ClientRepresentation();
 
         client.setClientId(clientId);
@@ -114,7 +112,7 @@ public class KeycloakCreateRealm {
         return client;
     }
 
-    private static void configureConfidentialResourcePermission(ResourceServerRepresentation authorizationSettings) {
+    public static void configureConfidentialResourcePermission(ResourceServerRepresentation authorizationSettings) {
         ResourceRepresentation resource = new ResourceRepresentation("Confidential Resource");
 
         resource.setUris(Collections.singleton("/api/confidential"));
@@ -147,7 +145,7 @@ public class KeycloakCreateRealm {
         authorizationSettings.getPolicies().add(permission);
     }
 
-    private static void configurePermissionResourcePermission(ResourceServerRepresentation authorizationSettings) {
+    public static void configurePermissionResourcePermission(ResourceServerRepresentation authorizationSettings) {
         ResourceRepresentation resource = new ResourceRepresentation("Permission Resource");
 
         resource.setUris(Collections.singleton("/api/permission"));
@@ -175,7 +173,7 @@ public class KeycloakCreateRealm {
         authorizationSettings.getPolicies().add(permission);
     }
 
-    private static UserRepresentation createUser(String username, String... realmRoles) {
+    public static UserRepresentation createUser(String username, String... realmRoles) {
         UserRepresentation user = new UserRepresentation();
 
         user.setUsername(username);
@@ -195,7 +193,7 @@ public class KeycloakCreateRealm {
     }
 
 
-    private String getAccessToken(String userName) {
+    public String getAccessToken(String userName) {
         return RestAssured
                 .given()
                 .param("grant_type", "password")

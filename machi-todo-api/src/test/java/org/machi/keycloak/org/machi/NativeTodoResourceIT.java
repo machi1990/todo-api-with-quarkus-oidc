@@ -1,4 +1,4 @@
-package org.machi.org.machi;
+package org.machi.keycloak.org.machi;
 
 import io.quarkus.test.junit.SubstrateTest;
 
