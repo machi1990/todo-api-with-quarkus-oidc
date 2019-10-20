@@ -1,24 +1,10 @@
 version: "3"
 
 services:
-  api_jvm: # to start the application in jvm mode
-    build:
-      dockerfile: src/main/docker/Dockerfile.jvm
-      context: ./machi-todo-api
-    ports:
-      - 9090:8080
-    environment:
-      - QUARKUS_DATASOURCE_URL=jdbc:postgresql://db:5432/todo-db
-      - QUARKUS_DATASOURCE_USERNAME=todo-api-user
-      - QUARKUS_DATASOURCE_PASSWORD=todo-api-pwd
-    depends_on:
-      - db
-      - keycloak
-
   api_native: # to start the application in native mode
     build:
       dockerfile: src/main/docker/Dockerfile.native
-      context: ./machi-todo-api
+      context: ../machi-todo-api
     ports:
       - 8080:8080
     environment:
@@ -34,9 +20,10 @@ services:
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
+    networks:
+      - storage
     ports:
       - 8180:8080
-      - 9990:9990
 
   db:
     image: postgres
@@ -45,8 +32,8 @@ services:
       - POSTGRES_USER=todo-api-user
       - POSTGRES_PASSWORD=todo-api-pwd
       - POSTGRES_DB=todo-db
-    ports:
-      - 5432:5432
+    networks:
+      - storage
 
 networks:
   storage:

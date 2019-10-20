@@ -50,6 +50,7 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-swagger-ui</artifactId>
     </dependency>
+
     <!-- data -->
     <dependency>
       <groupId>io.quarkus</groupId>
