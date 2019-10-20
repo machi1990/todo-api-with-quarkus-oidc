@@ -1,7 +1,7 @@
-# TODO Application
+# TODO API
 
 This is an example application based on a Todo list where the different tasks are created, read, updated, or deleted from the database. 
-Default this application uses an in-memory database called H2 in dev workflow and PostgresSQL in production. 
+Default this application uses an in-memory database called H2 in dev workflow and testing PostgresSQL in production. 
 It also uses Keycloak (a docker container exposed on `https://localhost:8180` ) for user authentication (use the `keycloak-create-realm` project to create `machi` user with `secret`). 
 
 NB: Keycloak container is not started automatically on development environment, use `docker-compose -f docker/keycloak-service.yml up` to start it.
@@ -12,6 +12,37 @@ cd keycloak-create-realm
 mvn clean package
 java -jar targe/keycloak-create-realm-1.0-SNAPSHOT-shaded.jar
 ``` 
+
+## retrieving an access token
+You'll need to retrieve the access token from Keycloak auth server `https://localhost:8180/auth/realms/todo-api/protocol/openid-connect/token`. 
+The following curl commands should suffice
+
+admin:
+```bash
+curl -d "client_id=machi-todo-api" -d "client_secret=secret" "username=admin" -d "password=machi" -d "grant_type=password" "http://localhost:8080/auth/realms/master/protocol/openid-connect/token" | jq -r '.access_token')
+``` 
+
+machi:
+```bash
+curl -d "client_id=machi-todo-api" -d "client_secret=secret" -d "username=machi" -d "password=machi" -d "grant_type=password" "http://localhost:8080/auth/realms/master/protocol/openid-connect/token" | jq -r '.access_token')
+``` 
+
+You can thereafter access the API using the `Bearer <retrieved-token>` strategy
+
+## running test
+Before running test, make sure you have a running Keycloak server as explained above
+JVM:
+```bash
+cd machi-todo-api
+mvn clean test
+```
+
+NATIVE:
+Native tests requires a connection to Postgres DB. You can indicate provide the datasource connection values as shown below.  
+```bash
+cd machi-todo-api
+mvn clean install -Dnative -Dquarkus.datasource.url=<jdbc:postregs...> -Dquarkus.datasource.username=<pg-username> -Dquarkus.datasource.password=<pg-password>
+```
 
 ## Development mode using in-memory H2 database
 DevMode:
@@ -71,3 +102,7 @@ To view the OpenAPi Swagger UI, go the following endpoint `/swagger-ui`
 ## Metrics
 
 API metrics are exposed at `/metrics` 
+
+
+# Features
+To see the list of proposed endpoints visit the `/swagger-ui`

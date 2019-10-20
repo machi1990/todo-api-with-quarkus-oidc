@@ -193,7 +193,7 @@ public class KeycloakCreateRealm {
     }
 
 
-    public String getAccessToken(String userName) {
+    public static String getAccessToken(String userName) {
         return RestAssured
                 .given()
                 .param("grant_type", "password")
