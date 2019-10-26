@@ -39,7 +39,7 @@ The above command will start a Keycloak server with an empty DB. For testing and
 and populate the realm with few users. To do so, use the following command to create a java executable and luanch it. 
 ```bash
 cd keycloak-create-realm
-mvn clean package
+./mvnw clean package
 java -jar targe/keycloak-create-realm-1.0-SNAPSHOT-shaded.jar
 ``` 
 
@@ -69,21 +69,21 @@ Before running test, make sure you have a running Keycloak server as explained a
 JVM:
 ```bash
 cd machi-todo-api
-mvn clean test
+./mvnw clean test
 ```
 
 NATIVE:
 Native tests requires a connection to Postgres DB. You can indicate provide the datasource connection values as shown below.  
 ```bash
 cd machi-todo-api
-mvn clean install -Dnative -Dquarkus.datasource.url=<jdbc:postregs...> -Dquarkus.datasource.username=<pg-username> -Dquarkus.datasource.password=<pg-password>
+./mvnw clean install -Dnative -Dquarkus.datasource.url=<jdbc:postregs...> -Dquarkus.datasource.username=<pg-username> -Dquarkus.datasource.password=<pg-password>
 ```
 
 ## Development mode using in-memory H2 database
 DevMode:
 ```bash
 cd machi-todo-api
-mvn compile quarkus:dev
+./mvnw compile quarkus:dev
 ```
 Then, open: http://localhost:8080/swagger-ui
 
@@ -105,7 +105,7 @@ Replace
 
 ```bash
 cd machi-todo-api
-mvn package -DskipTests -DskipITs
+./mvnw package -DskipTests -DskipITs
 java -jar machi-todo-api/target/machi-todo-api-1.0.0-SNAPSHOT-runner.jar
 ```
 
@@ -115,7 +115,7 @@ Then, open http://localhost:8080/swagger-ui
 Compile:
 ```bash
 cd machi-todo-api
-mvn package -DskipTests -DskipITs
+./mvnw package -DskipTests -DskipITs
 ```
 
 Run:
@@ -131,7 +131,7 @@ NB: modify the `docker/docker.env` file so that it corresponds to real environme
 Compile:
 ```bash
 cd machi-todo-api
-mvn package -Pnative -Dnative-image.docker-build=true
+./mvnw package -Pnative -Dnative-image.docker-build=true
 ```
 
 Run:
