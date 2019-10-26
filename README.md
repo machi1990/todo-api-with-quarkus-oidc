@@ -36,15 +36,15 @@ docker-compose -f docker/backing-services.yml up keycloak
 ``` 
 
 The above command will start a Keycloak server with an empty DB. For testing and running our application locally we'll need to register our application (this consists of creating a client), authentication realm for our application 
-and populate the realm with few users. To do so, use the following command to create a java executable and luanch it. 
+and populate the realm with few users. To do so, use the following command to create a java executable and launch it. 
 ```bash
 cd keycloak-create-realm
 ./mvnw clean package
-java -jar targe/keycloak-create-realm-1.0-SNAPSHOT-shaded.jar
+java -jar target/keycloak-create-realm-1.0-SNAPSHOT-shaded.jar
 ``` 
 
-Running the above command will create a `machi-todo-api` client_id with having `secret` as the client_secret. 
-It will also create create a `todo-api` realm and populate it with an admin user having the following credentials: 
+Running the above command will create a `machi-todo-api` client_id with `secret` as the client_secret. 
+It will also create a `todo-api` realm and populate it with an admin user having the following credentials: 
 username `admin` password `secret`, a normal user i.e with `users` role will be created with the following 
 credentials: username `machi`, password `secret`. 
 
@@ -54,7 +54,7 @@ The following curl commands should suffice
 
 admin:
 ```bash
-curl -X POST "http://localhost:8180/auth/realms/todo-api/protocol/openid-connect/token" -H "Content-Type: application/x-www-form-urlencoded" -d "client_id=machi-todo-api" -d "client_secret=secret" "username=admin" -d "password=machi" -d "grant_type=password" | jq -r '.access_token'
+curl -X POST "http://localhost:8180/auth/realms/todo-api/protocol/openid-connect/token" -H "Content-Type: application/x-www-form-urlencoded" -d "client_id=machi-todo-api" -d "client_secret=secret" -d "username=admin" -d "password=machi" -d "grant_type=password" | jq -r '.access_token'
 ``` 
 
 machi:
@@ -88,7 +88,7 @@ cd machi-todo-api
 Then, open: http://localhost:8080/swagger-ui
 
 ## Using PostgresSQL database
-You'll need a running PostresSQL database to be able to ba able to use the application in `production`. 
+You'll need a running PostresSQL database to be able to use the application in `production`. 
 By default the application will try to connect to PostgresSQL server running locally on the default port i.e `localhost:5432` and `todo-db` database. 
 If you do not have a local running DB, use the following command `docker-compose up -f docker/backing-services.yml up db` to spin a PostgresSQL container.
 
