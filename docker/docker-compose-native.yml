@@ -3,13 +3,12 @@ version: "3"
 # A docker-compose file to start the application in native mode.
 
 services:
-  api_native:
+  api_jvm:
+    network_mode: bridge
     build:
       dockerfile: ../docker/Dockerfile.native
       context: ../machi-todo-api
     ports:
       - 8080:8080
-    environment:
-      - QUARKUS_DATASOURCE_URL=jdbc:postgresql://<pg-host-url>/todo-db
-      - QUARKUS_DATASOURCE_USERNAME=<db-user>
-      - QUARKUS_DATASOURCE_PASSWORD=<db-password>
+    env_file:
+      - docker.env

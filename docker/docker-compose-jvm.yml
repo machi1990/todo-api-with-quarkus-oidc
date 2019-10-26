@@ -2,12 +2,11 @@ version: "3"
 # a docker-compose file to start the application in jvm mode
 services:
   api_jvm:
+    network_mode: bridge
     build:
       dockerfile: ../docker/Dockerfile.jvm
       context: ../machi-todo-api
     ports:
       - 8080:8080
-    environment:
-      - QUARKUS_DATASOURCE_URL=jdbc:postgresql://<pg-host-url>/todo-db
-      - QUARKUS_DATASOURCE_USERNAME=<db-user>
-      - QUARKUS_DATASOURCE_PASSWORD=<db-password>
+    env_file:
+      - docker.env
