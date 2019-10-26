@@ -2,12 +2,20 @@
 # This Dockerfile is used in order to build a container that runs the Quarkus application in native (no JVM) mode
 #
 # Before building the docker image run:
-#
-# mvn package -Pnative -Dnative-image.docker-build=true
+
+# We'll need to define our auth client id that will be picked up during the build. Defaults to "machi-todo-api". To do so, run the following command
+# export CLIENT_ID = <your_auth_client_id_here>
+
+# We'll need to define our auth auth_server_url_realm that will be picked up during the build. Defaults to "http://keycloak/auth/realms/todo-api". To do so, run the following command
+
+# export AUTH_SERVER_URL = <your_auth_server_url_realm_here>
+
+# Execute the build with the below command
+# cd ../machi-todo-api && mvn package -Pnative -Dnative-image.docker-build=true
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native -t quarkus/machi-todo-api .
+# docker build -f ../docker/Dockerfile.native -t quarkus/machi-todo-api .
 #
 # Then run the container using:
 #

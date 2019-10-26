@@ -4,7 +4,7 @@ This is an example application based on a Todo list where the different tasks ar
 Default this application uses an in-memory database called H2 in dev workflow and testing PostgresSQL in production. 
 It also uses Keycloak (a docker container exposed on `https://localhost:8180` ) for user authentication (use the `keycloak-create-realm` project to create `machi` user with `secret`). 
 
-NB: Keycloak container is not started automatically on development environment, use `docker-compose -f docker/keycloak-service.yml up` to start it.
+NB: Keycloak container is not started automatically on development environment, use `docker-compose -f docker/backing-services.yml up keycloak` to start it.
 
 ## Populating Keycloak
 ```bash

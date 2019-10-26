@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:7.0.0
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+    ports:
+      - 8180:8080
+
+  db:
+    image: postgres
+    container_name: todo_api_db
+    environment:
+      - POSTGRES_USER=todo-api-user
+      - POSTGRES_PASSWORD=todo-api-pwd
+      - POSTGRES_DB=todo-db
+    ports:
+      - 5432:5432
