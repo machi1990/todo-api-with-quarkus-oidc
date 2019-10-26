@@ -61,6 +61,12 @@
       <artifactId>quarkus-jdbc-postgresql</artifactId>
     </dependency>
 
+    <!-- data migration -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-flyway</artifactId>
+    </dependency>
+
     <!-- validation -->
     <dependency>
       <groupId>io.quarkus</groupId>
