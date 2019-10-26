@@ -54,12 +54,12 @@ The following curl commands should suffice
 
 admin:
 ```bash
-curl -d "client_id=machi-todo-api" -d "client_secret=secret" "username=admin" -d "password=machi" -d "grant_type=password" "http://localhost:8080/auth/realms/master/protocol/openid-connect/token" | jq -r '.access_token')
+curl -X POST "http://localhost:8180/auth/realms/todo-api/protocol/openid-connect/token" -H "Content-Type: application/x-www-form-urlencoded" -d "client_id=machi-todo-api" -d "client_secret=secret" "username=admin" -d "password=machi" -d "grant_type=password" | jq -r '.access_token'
 ``` 
 
 machi:
 ```bash
-curl -d "client_id=machi-todo-api" -d "client_secret=secret" -d "username=machi" -d "password=machi" -d "grant_type=password" "http://localhost:8080/auth/realms/master/protocol/openid-connect/token" | jq -r '.access_token')
+curl -X POST "http://localhost:8180/auth/realms/todo-api/protocol/openid-connect/token" -H "Content-Type: application/x-www-form-urlencoded" -d "client_id=machi-todo-api" -d "client_secret=secret" -d "username=machi" -d "password=machi" -d "grant_type=password" | jq -r '.access_token'
 ``` 
 
 You can thereafter access the API using the `Bearer <retrieved-token>` authentication scheme. The token has to be passed as an `Authorization` header.
