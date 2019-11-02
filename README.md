@@ -4,12 +4,12 @@ This is an example application based on a Todo API written using [Quarkus, a clo
 ## TODO Entity
 A todo item is defined by:
 
-An *id* - a unique identifier (also a primary key in our database)
-By its *title* - `title` (required)
-By the *owner* - `createdBy` - (required)
-By its *priority* on the list - `order`
-By its `status` - whether it is completed or still pending
-By its `description`
+- An *id* - a unique identifier (also a primary key in our database)
+- By its *title* - `title` (required)
+- By the *owner* - `createdBy` - (required)
+- By its *priority* on the list - `order`
+- By its `status` - whether it is completed or still pending
+- By its `description`
   
 **Note:** The `title` and `createdBy` forms a unique composite key which means that a user cannot create the same todo item more than once.
 
