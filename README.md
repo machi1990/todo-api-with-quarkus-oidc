@@ -107,9 +107,9 @@ java -jar target/keycloak-create-realm-1.0-SNAPSHOT-shaded.jar
 
 Running the above command will create a `machi-todo-api` client_id with `secret` as the client_secret.
 
-It will also create a `todo-api` realm and populate it with an admin user having the following credentials: username `admin` password `secret`.
+It will also create a `todo-api` realm and populate it with an admin user having the following credentials: username `admin` password `admin`.
 
-A normal user i.e with `users` role will be created with the following credentials: username `machi`, password `secret`.
+A normal user i.e with `users` role will be created with the following credentials: username `machi`, password `admin`.
 
 #### Retrieving an access token
 
@@ -120,7 +120,7 @@ The following curl commands should suffice
 **Admin access token:**
 
 ```bash
-export admin_access_token=$(curl -X POST "http://localhost:8180/auth/realms/todo-api/protocol/openid-connect/token" -H "Content-Type: application/x-www-form-urlencoded" -d "client_id=machi-todo-api" -d "client_secret=secret" -d "username=admin" -d "password=machi" -d "grant_type=password" | jq -r '.access_token')
+export admin_access_token=$(curl -X POST "http://localhost:8180/auth/realms/todo-api/protocol/openid-connect/token" -H "Content-Type: application/x-www-form-urlencoded" -d "client_id=machi-todo-api" -d "client_secret=secret" -d "username=admin" -d "password=admin" -d "grant_type=password" | jq -r '.access_token')
 ```
 
 **Normal user access token:**
@@ -142,7 +142,7 @@ docker-compose up -f docker/backing-services.yml up db
 
 ### Building and starting the API
 
-Building the API requires running the following command.
+Building the API requires running the following commands.
 ```bash
 cd machi-todo-api
 ```
@@ -226,13 +226,13 @@ curl -H "Authorization: Bearer $users_access_token" localhost:8080/api/todos/1
 A user can create a TODO item using the `POST /api/todos` endpoint. The endpoint will return the `id` of the created todo item.
 
 ```bash
-curl -X POST -H "Authorization: Bearer $users_access_token" -H "Content-Type: application/json" -d '"{\"title\":\"first\",\"description\":\"description\",\"order\":0}"' localhost:8080/api/todos/
+curl -X POST -H "Authorization: Bearer $users_access_token" -H "Content-Type: application/json" -d '{"title":"first","description":"description","order":0}' localhost:8080/api/todos/
 ```
 
 #### 8. Updating a user todo item:
 A user can update, i.e change the status, the title, the description, the order of a TODO item using the `PUT /api/todos/{id}` endpoint. The endpoint will return the `id` of the created todo item.
 ```bash
-curl -X PUT -H "Authorization: Bearer $users_access_token" -H "Content-Type: application/json" -d '"{\"title\":\"first\",\"description\":\"description\",\"order\":0, \"status\":\"completed\"}"' localhost:8080/api/todos/1
+curl -X PUT -H "Authorization: Bearer $users_access_token" -H "Content-Type: application/json" -d '{"title":"first","description":"description","order":0, "status":"completed"}' localhost:8080/api/todos/1
 ```
 
 ## A note on Authentication:
