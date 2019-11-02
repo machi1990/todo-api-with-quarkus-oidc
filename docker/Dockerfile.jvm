@@ -2,7 +2,7 @@
 # This Dockerfile is used in order to build a container that runs the Quarkus application in JVM mode
 #
 # Before building the docker image run:
-# cd ../machi-todo-api && ./mvnw package
+# cd ../machi-todo-api && mvn package
 #
 # Then, build the image with:
 #
